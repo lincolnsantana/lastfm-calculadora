@@ -11,9 +11,9 @@ $user= "LincolnLopess";
         $busca = "$apiUrl?method=user.getTopTracks&user=$user&period=overall&limit=500&api_key=$apiKey&format=json";
         $xml = json_decode(file_get_contents($busca), true);
 
-        //print_r($xml);
         $total_paginas = $xml['toptracks']['@attr']['totalPages'];
         //var_dump($teste);
+       // $total_paginas = 1;
 
         //$artist = $xml['toptracks']['track'][0]['artist']['name'];
 
@@ -24,21 +24,24 @@ $user= "LincolnLopess";
             $busca_por_pagina = "$apiUrl?method=user.getTopTracks&user=$user&period=overall&limit=500&page=$i&api_key=$apiKey&format=json";
             $json_pagina = json_decode(file_get_contents($busca_por_pagina), true);
 
-    
+    // acessar os atributos que vou precisar para manipular
                 foreach ($json_pagina['toptracks']['track'] as $nome) {
-                    $nome_faixa = $nome['name'];
+
                     $scrobbles = $nome['playcount'];
                     $duracao_faixa = $nome['duration'];
-                    $nome_artista = $nome['artist']['name'];
                     $tempo_total = $duracao_faixa * $scrobbles;
 
-                    echo "$rank: $nome_artista - $nome_faixa - $tempo_total \n";
+                    //insiro as informaçoes que vou precisar em um array multidimensional
+                    $musica_dados[$rank] = array(array('artista' => $nome['artist']['name'], 'faixa' =>$nome['name'], 'tempo total' => $tempo_total));
+                    echo "$rank \n";
                     $rank =  $rank + 1;
-
-                }
-
-
+                }                
         }
 
-               
+        //print_r($json_string);
+
+        
+        
+
+        
 ?>
