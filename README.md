@@ -1,5 +1,5 @@
 # Last.fm calculadora de horas
-script simples somente para calcular quantas horas de um determinado artista foi ouvida pelo usuario com base na quantidade de scrobbles executados por faixa
+A principio é só um simples script que calcula a quantidade de horas que um usuario ouviu de algum artista, com base nos seus scrobbles.
 
 # funções que pretendo implementar futuramente
 - calcular quantas horas um usuario ouviu de um determinado album de um artista
