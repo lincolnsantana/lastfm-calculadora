@@ -1,4 +1,4 @@
-# lastfm-calculadora
+# Last.fm calculadora de horas
 script simples somente para calcular quantas horas de um determinado artista foi ouvida pelo usuario com base na quantidade de scrobbles executados por faixa
 
 # funções que pretendo implementar futuramente
