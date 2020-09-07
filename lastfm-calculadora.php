@@ -77,6 +77,7 @@
         $musicas = getTopTracks();
         $artistas = getTopArtists();
 
+        
                 $i = 1;
                 foreach ($artistas as $artista) {
                         foreach ($musicas as $musica) {
@@ -87,6 +88,6 @@
                         }
                 $i++;     
                 }
-
-                var_dump($artistas);  
+                
+                var_dump($artistas);
 ?>
