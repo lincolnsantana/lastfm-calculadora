@@ -1,93 +1,64 @@
 <?php
 
-        // função para obter as faixas e a quantidade de tempo que o usuario ouviu ela
+       
+                //nome do album e artista - album get info #ok
+                //tempo de cada faixa - album get info #ok
+                //scrobble das faixas do album #ok;
 
-        function getTopTracks(){
+                $albumsList = array();
+                $limit = 2;
+                $user = "LincolnLopess";
+                
                 $apiUrl = "http://ws.audioscrobbler.com/2.0/";
-                $apiKey = "95439be5ca91fc0b25d9299abee8f65d";
-                $user= "LincolnLopess";
+                $apiKey = "7f802413462c06b6c2ada909f8cf02af";
+                
+                $album_info = array();
 
-                // primeira chamada da api para obter a quantidade total de páginas que contém no perfil do usuario
-                $busca = "$apiUrl?method=user.getTopTracks&user=$user&period=overall&limit=500&api_key=$apiKey&format=json";
-                $page = json_decode(file_get_contents($busca), true);
 
-                // o valor é atribuido a variavel $total_paginas para utilizarmos na estrutura de repetição
-                $total_paginas = $page['toptracks']['@attr']['totalPages'];
+                        $busca = "$apiUrl?method=user.getTopAlbums&user=$user&limit=$limit&api_key=$apiKey&format=json";
+                        $json_pagina = json_decode(file_get_contents($busca), true);
 
-                $rank = 1;
-                $artista_dados = array();
+                                foreach ($json_pagina['topalbums']['album'] as $album_name) {
+                                        $album = str_replace(' ', '%20', $album_name['name']);
+                                        $artist = str_replace(' ', '%20', $album_name['artist']['name']);
+                                        $albumsList[$album] = $artist;
+                                }
+                                
+                                //var_dump($albumsList);
 
-                // com a quantidade de páginas, iremos fazer chamadas para obter as faixas dos artistas
-                        for ($i=1; $i <= $total_paginas; $i++) { 
-                                //echo "$i de $total_paginas \n";
+                                foreach ($albumsList as $album => $artist) {
 
-                                // o atributo page da api vai alterando de acordo com a estrutura de repetição
-                                $busca_por_pagina = "$apiUrl?method=user.getTopTracks&user=$user&period=overall&limit=500&page=$i&api_key=$apiKey&format=json";
-                                $json_pagina = json_decode(file_get_contents($busca_por_pagina), true);
+                                        do {
+                                                $busca = "$apiUrl?method=album.getInfo&user=$user&artist=$artist&album=$album&autocorrect=1&api_key=$apiKey&format=json";
+                                                $json_pagina = json_decode(file_get_contents($busca), true);
+                                        } while ($json_pagina['error']);
 
-                                        // acessar os atributos que vou precisar para manipular
-                                        foreach ($json_pagina['toptracks']['track'] as $nome) {
+                                        
+                                        //echo "artista: $artist album: $album \n";
+                                        $tempoTotal = 0;
+
+                                        foreach ($json_pagina['album']['tracks']['track'] as $nome) {
 
                                                 // os atributos que vamos precisar para fazer o calculo de horas: quantidade de scrobbles da faixa e duração
-                                                $scrobbles = $nome['playcount'];
-                                                $duracao_faixa = $nome['duration'];
-                                                // tempo total é o tempo da faixa, vezes a quantidade de vezes que o usuario ouviu a faixa
-                                                $tempo_total = $duracao_faixa * $scrobbles;
-                                                $nome_artista = $nome['artist']['name'];
-                                                //$nome_faixa = $nome['name'];
-
-                                                // inserimos o artista, e o tempo total da faixa em um array, para manipularmos posteriormente
-                                                $artista_dados[$rank] = array('artista' => $nome_artista, 'tempo' => $tempo_total);
-                                                $rank++;
-                                        }
-                        }
-                return $artista_dados;
-        }
-
-        // funcão que vai retornar os principais artistas do usuario, com base em seu perfil da Last.fm
-        
-        function getTopArtists(int $limite = 5){
-
-                $apiUrl = "http://ws.audioscrobbler.com/2.0/";
-                $apiKey = "95439be5ca91fc0b25d9299abee8f65d";
-                $user = "LincolnLopess";
-            
-                //$busca = "$apiUrl?method=user.getTopArtists&user=$user&period=overall&limit=25&api_key=$apiKey&format=json";
-                //$paginas = json_decode(file_get_contents($busca), true);
-            
-                //$total_paginas = $paginas['topartists']['@attr']['totalPages'];
-                //print_r($total_paginas);
-            
-                $lista_artistas = array();
-                $rank = 1;
-
-                                $busca_por_pagina = "$apiUrl?method=user.getTopArtists&user=$user&period=overall&limit=$limite&api_key=$apiKey&format=json";
-                                $json_pagina = json_decode(file_get_contents($busca_por_pagina), true);
-                        
-                                        foreach ($json_pagina['topartists']['artist'] as $artista) {
-                                                $nome_artista = $artista['name'];
-                                                $lista_artistas[$rank] = array('artista' => $nome_artista, 'tempoTotal' => 0);
+                                                $nome_faixa = str_replace(' ', '%20', $nome['name']);
+                                                //echo "nome: $nome_faixa \n";
+                            
+                                                do {
+                                                    $busca_faixa = "$apiUrl?method=track.getInfo&user=$user&artist=$artist&track=$nome_faixa&autocorrect=1&api_key=$apiKey&format=json";
+                                                    $json_track = json_decode(file_get_contents($busca_faixa), true);
+                                                } while ($json_track['error']);
+                                                    
                                                 
-                                                $rank++;
+                                                $nome_faixa = $json_track['track']['name'];
+                                                $duration = $json_track['track']['duration'];
+                                                $user_playcount = $json_track['track']['userplaycount'];
+                                                $time_listened = (($duration * $user_playcount) / 1000) / 3600;
+                                                $tempoTotal += $time_listened;
+                            
+                                                $total_time_listened = number_format($tempoTotal, 2, ',', "");
                                         }
-                        
-                return $lista_artistas;
-            }
-            
-        $musicas = getTopTracks();
-        $artistas = getTopArtists();
-
-        
-                $i = 1;
-                foreach ($artistas as $artista) {
-                        foreach ($musicas as $musica) {
-                                if ($musica['artista'] == $artista['artista']) {    
-                                        //echo "deu serto \n";
-                                        $artistas[$i]['tempoTotal'] += $musica['tempo']; 
-                                } 
-                        }
-                $i++;     
-                }
-                
-                var_dump($artistas);
+                                        $album_info[$album] = $total_time_listened;
+                                }
+                                arsort($album_info);
+                                print_r($album_info);
 ?>
