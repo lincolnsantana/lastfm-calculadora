@@ -1,6 +1,6 @@
 <?php
-include("lastfm-calculadora.php");
-include("trackinfo.php");
+include("lastfmalbums.php");
+include("infofaixas.php");
 include("spotify-api.php");
 
 //API Spotify
