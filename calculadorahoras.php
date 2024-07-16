@@ -4,8 +4,8 @@ include("infofaixas.php");
 include("spotify-api.php");
 
 //API Spotify
-$id_cliente = "6998bcd985764732b305777357bdf280";
-$segredo_cliente = "9607cc79684d4142b737abd21ad247ea";
+$id_cliente = "";
+$segredo_cliente = "";
 $token_acesso = obterTokenAcesso($id_cliente, $segredo_cliente);
 $album_horas = '';
 
