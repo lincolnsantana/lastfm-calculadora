@@ -10,10 +10,13 @@ $album_horas = '';
 if ($token_acesso) {
 
     $discos_lista = obterTopAlbuns($apiUrl, $apiKey, $user, $limit);
+    $album_nome = $discos_lista['albuns'];
+    $artista_nome = $discos_lista['artistas'];
+    $playcount_album = $discos_lista['playcount'];
 
-    foreach ($discos_lista as $disco => $artista) {
+    foreach ($discos_lista as $index => $album) {
         
-        $id_album = buscarAlbum($disco, $artista, $token_acesso);
+        $id_album = buscarAlbum($album, $artista[$index], $token_acesso);
         if ($id_album) {
             $faixas = obterFaixasAlbum($id_album, $token_acesso);
 
@@ -24,7 +27,7 @@ if ($token_acesso) {
 
                     $nome_faixa = $faixa['name'];
                     //$duracao = formatarDuracao($faixa['duration_ms']);
-                    $playcount = playcountFaixa($artista, $nome_faixa, $apiUrl, $apiKey, $user);
+                    $playcount = playcountFaixa($artista[$index], $nome_faixa, $apiUrl, $apiKey, $user);
                     //$horas_faixa = formatarMsParaHoras($faixa['duration_ms'] * $playcount);
                     //echo "Faixa: $nome_faixa - Duração:". $faixa['duration_ms'] ." Playcount: $playcount\n";
 
@@ -32,9 +35,9 @@ if ($token_acesso) {
                 }
 
                 $album_horas = formatarMsParaHoras($total_horas);
-                echo "Album: $disco - horas ouvidas: $album_horas\n";
+                echo "Album: $album - Artista: {$artistas[$index]} - playcount: {$playcounts[$index]} - horas ouvidas: $album_horas\n";
             } else {
-                echo "Nenhuma faixa encontrada para o álbum '$disco' de '$artista'.";
+                echo "Nenhuma faixa encontrada para o álbum '$album' de '{$artistas[$index]}'.";
             }
         } else {
             echo "Álbum '$disco' de '$artista' não encontrado.";
