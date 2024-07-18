@@ -65,11 +65,32 @@ function obterFaixasAlbum($id_album, $token_acesso)
     return $dados['items'] ?? [];
 }
 
+function buscarDataLancamento($nome_album, $nome_artista, $token_acesso)
+{
+    $url = "https://api.spotify.com/v1/search?q=album:" . urlencode($nome_album) . "%20artist:" . urlencode($nome_artista) . "&type=album&limit=1";
+    $cabecalhos = [
+        "Authorization: Bearer $token_acesso",
+    ];
+    $opcoes = [
+        'http' => [
+            'header' => $cabecalhos,
+            'method' => 'GET',
+        ],
+    ];
+
+    $contexto = stream_context_create($opcoes);
+    $resposta = file_get_contents($url, false, $contexto);
+    $dados = json_decode($resposta, true);
+
+    return $dados['albums']['items'][0]['release_date'] ?? null;
+}
+
+
 function formatarDuracao($duracao_ms)
 {
     $duracao_min = floor($duracao_ms / 60000);
     $duracao_seg = round(($duracao_ms % 60000) / 1000);
-    return "$duracao_min:$duracao_seg";
+    return "$duracao_min min $duracao_seg seg";
 }
 
 function formatarMsParaHoras($milisegundos) {
