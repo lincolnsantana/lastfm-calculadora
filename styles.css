@@ -1,0 +1,95 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    /*
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;*/
+}
+/*
+.container {
+    text-align: center;
+}*/
+
+/* Estilo personalizado para o espaçamento entre os containers */
+.container-separado {
+    margin-bottom: 30px; /* Espaço entre os containers */
+}
+.form-container {
+    height: 40vh; /* 30% da altura da tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Cor de fundo para visualização */
+    padding: 20px;
+}
+.form-container .form-control {
+    max-width: 400px; /* Largura máxima do formulário */
+    width: 100%; /* Largura total do formulário */
+}
+.result-container {
+    height: 60vh; /* 70% da altura da tela */
+    background-color: #e9ecef; /* Cor de fundo para visualização */
+    padding: 20px;
+}
+.result-container .row {
+    justify-content: center; /* Centraliza os itens na linha */
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 1rem;
+}
+
+.form-control {
+    font-size: 0.875rem;
+}
+
+.btn {
+    font-size: 1rem;
+}
+
+/* Ajuste do tamanho do input-group-text */
+.input-group-text {
+    white-space: nowrap; /* Impede que o texto se quebre */
+}
+
+
+
+
+/* Media Queries para ajuste da tipografia */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    .form-group label {
+        font-size: 0.875rem;
+    }
+    .form-control {
+        font-size: 0.75rem;
+    }
+    .btn {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.25rem;
+    }
+    .form-group label {
+        font-size: 0.75rem;
+    }
+    .form-control {
+        font-size: 0.7rem;
+    }
+    .btn {
+        font-size: 0.75rem;
+    }
+}

@@ -10,23 +10,6 @@ function playcountFaixa($artista, $faixa, $apiUrl, $apiKey, $user)
     return $faixa_playcount;
 }
 
-/*
-function obterTopAlbuns($apiUrl, $apiKey, $user, $limit)
-{
-    $url = "$apiUrl?method=user.getTopAlbums&user=$user&limit=$limit&api_key=$apiKey&format=json";
-    $json_pagina = json_decode(file_get_contents($url), true);
-    $discos_lista = array();
-
-    if (isset($json_pagina['topalbums']['album'])) {
-        foreach ($json_pagina['topalbums']['album'] as $disco_nome) {
-            $album = $disco_nome['name'];
-            $artista = $disco_nome['artist']['name'];
-            $discos_lista[$album] = $artista;
-        }
-    }
-
-    return $discos_lista;
-}*/
 
 function obterTopAlbuns($apiUrl, $apiKey, $user, $limit) {
     $url = "$apiUrl?method=user.getTopAlbums&user=$user&limit=$limit&api_key=$apiKey&format=json";
@@ -49,6 +32,7 @@ function obterTopAlbuns($apiUrl, $apiKey, $user, $limit) {
 
     return ['albuns' => $discosLista, 'artistas' => $artistasLista, 'playcounts' => $playcountsLista];
 }
+
 
 $apiUrl = "http://ws.audioscrobbler.com/2.0/";
 $apiKey = "58b3181bd5318362464fd0e8fe566a00";
