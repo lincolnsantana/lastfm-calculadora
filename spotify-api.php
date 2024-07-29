@@ -135,30 +135,20 @@ function formatarDuracao($duracao_ms)
     return "$duracao_min min $duracao_seg seg";
 }
 
-/*
 function formatarMsParaHoras($milisegundos) {
-    $segundos = floor($milisegundos / 1000);
-    $minutos = floor($segundos / 60);
-    $horas = floor($minutos / 60);
-
-    $segundos = $segundos % 60;
-    $minutos = $minutos % 60;
-
-    return sprintf("%02d:%02d:%02d", $horas, $minutos, $segundos);
-} */
-
-function formatarMsParaHoras($milisegundos) {
-    // Convertendo milissegundos para horas decimais
-    $horas_decimais = $milisegundos / 3600000; // 3600000 ms em uma hora
-    // Formatação para exibir horas com uma casa decimal no formato "h"
-    $horas_formatadas = number_format($horas_decimais, 1);
-    // Substituindo ponto por vírgula
-    $horas_formatadas = str_replace('.', ',', $horas_formatadas);
-    return $horas_formatadas . "h";
+    // Convertendo milissegundos para segundos
+    $segundos = $milisegundos / 1000;
+    
+    // Convertendo segundos para horas e minutos
+    $horas = intval($segundos / 3600);
+    $minutos = intval(($segundos % 3600) / 60);
+    
+    // Formatação para exibir no formato "h min"
+    return sprintf("%dh %02dmin", $horas, $minutos);
 }
 
-$id_cliente = "";
-$segredo_cliente = "";
+$id_cliente = "6998bcd985764732b305777357bdf280";
+$segredo_cliente = "9607cc79684d4142b737abd21ad247ea";
 $token_acesso = obterTokenAcesso($id_cliente, $segredo_cliente);
 
 

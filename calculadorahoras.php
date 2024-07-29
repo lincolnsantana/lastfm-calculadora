@@ -4,7 +4,7 @@ include("spotify-api.php");
 
 
 // Exemplo de uso:
-$limit = 4;
+$limit = 8;
 $user = $_POST['username'];
 
 
@@ -53,25 +53,70 @@ foreach ($albuns as $index => $album) {
 
 usort($dados_musicais, "compararTotalHoras");
 
-    foreach ($dados_musicais as $dados) {
-        //$album_horas = formatarMsParaHoras($total_horas);
-        //echo "$album ($ano_lancamento) - plays(scrobbles): {$playcounts[$index]} horas ouvidas: $album_horas<br>";
+?>
 
-        //formatar a chave ano para mostrar somente o ano como data de lançamento.
-        $partes = explode('-',  $dados['ano']);
-        $ano = $partes[0];
+<!DOCTYPE html>
+<html lang="en">
 
-        echo '
-            <div class="col">
-                <div class="card h-100">
-                        <img src=" ' . $dados['imagem'] . ' " class="card-img-top" alt="' . $dados['artista'] . '">
-                            <div class="card-body">
-                                <h5 class="card-title">' . $dados['album'] . '</h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">' . $dados['artista'] . '</h6>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">' . $ano . '</h6>
-                                <p class="card-text">' . number_format($dados['playcount'], 0, ',', '.'). ' scrobbles</p>
-                                <h4 class="card-title">' . formatarMsParaHoras($dados['total_horas']) . '</h4>
-                            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS externo -->
+
+    <title>Last.fm Albums Hours</title>
+</head>
+
+<body class="d-flex align-items-center min-vh-100">
+    <div class="container-fluid text-left">
+        <div class="row mx-auto">
+            <div class="col-sm-3 d-flex justify-content-center align-items-stretch">
+                <div class="container mt-5">
+                    <h1 class="result-title">This is the time you spend listening to your <span class="pink-border">favorite albums.</span></h1>
                 </div>
-            </div>';
-    }
+            </div>
+            <div class="col-sm-9 d-flex flex-nowrap overflow-auto h-100">
+                <div class="d-flex">
+
+
+                    <?php
+                    $rank = 1;
+                    foreach ($dados_musicais as $dados) {
+                        //$album_horas = formatarMsParaHoras($total_horas);
+                        //echo "$album ($ano_lancamento) - plays(scrobbles): {$playcounts[$index]} horas ouvidas: $album_horas<br>";
+
+                        //formatar a chave ano para mostrar somente o ano como data de lançamento.
+                        $partes = explode('-',  $dados['ano']);
+                        $ano = $partes[0];
+
+                        echo '<div class="container card-album m-0" id="album">
+                        <h1 class="card-rank mb-4">'. $rank .'</h1>
+                        <img src="' . $dados['imagem'] . '"
+                            class="img-fluid mb-4" alt="' . $dados['artista'] . '">
+                        <div class="bg-transparent border-0">
+                            <h4 class="album-name">' . $dados['album'] . '</h4>
+                            <h5 class="artist-name">' . $dados['artista'] . '</h5>
+                            <h6 class="playcount">' . number_format($dados['playcount'], 0, ',', '.') . ' scrobbles</h6>
+                            <h4 class="hours">' . formatarMsParaHoras($dados['total_horas']) . '</h4>
+                        </div>
+                    </div>';
+
+                    $rank++;
+                    }
+
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,95 +1,116 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    /*
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0;
-    margin-bottom: 0;*/
-}
-/*
-.container {
-    text-align: center;
-}*/
-
-/* Estilo personalizado para o espaçamento entre os containers */
-.container-separado {
-    margin-bottom: 30px; /* Espaço entre os containers */
-}
-.form-container {
-    height: 40vh; /* 30% da altura da tela */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f8f9fa; /* Cor de fundo para visualização */
-    padding: 20px;
-}
-.form-container .form-control {
-    max-width: 400px; /* Largura máxima do formulário */
-    width: 100%; /* Largura total do formulário */
-}
-.result-container {
-    height: 60vh; /* 70% da altura da tela */
-    background-color: #e9ecef; /* Cor de fundo para visualização */
-    padding: 20px;
-}
-.result-container .row {
-    justify-content: center; /* Centraliza os itens na linha */
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    font-size: 1rem;
-}
-
-.form-control {
-    font-size: 0.875rem;
-}
-
-.btn {
-    font-size: 1rem;
-}
-
-/* Ajuste do tamanho do input-group-text */
-.input-group-text {
-    white-space: nowrap; /* Impede que o texto se quebre */
+    font-family: "Inter", sans-serif;
+    background-color: #9AC8FF;
 }
 
 
+.title {
+    font-size: 64px;
+    font-weight: 700;
+    display: inline-flex;
+    line-height: 110%;
+
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.pink-border {
+    background-color: #FF9FCC;
+    border: 1px transparent;
+    border-radius: 12px;
+    /* padding: 0 2px 0 2px; */
+
+}
+
+.input-text {
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 12px;
+}
+
+.loading {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 110%;
+}
+
+.result-title {
+    font-size: 55px;
+    line-height: 110%;
+    font-weight: 700;
+    text-align: left;
+    color: #050826;
+}
+
+.result {
+    scrollbar-width: thin;
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none; /* Para navegadores WebKit */
+    -moz-user-select: none;    /* Para Firefox */
+    -ms-user-select: none;     /* Para IE/Edge */
+}
+
+.card-rank {
+    font-size: 24px;
+    line-height: 120%;
+    font-weight: 700;
+    text-align: left;
+}
+
+.card-album {
+    width: 20rem;
+}
+
+.album-name {
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 500;
+}
+
+.artist-name {
+    font-size: 14px;
+    line-height: 120%;
+    font-weight: 500;
+    color: #484E54;
+}
+
+.playcount {
+    font-size: 14px;
+    line-height: 150%;
+    font-weight: 500;
+}
+
+.hours {
+    font-size: 24px;
+    line-height: 120%;
+    font-weight: 700;
+}
+
+#loading-div {
+    display: none;
+}
 
 
-/* Media Queries para ajuste da tipografia */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 1.5rem;
+@media (max-width: 375px) {
+    .title {
+        font-size: 40px;
+        /* Defina o tamanho desejado aqui */
     }
-    .form-group label {
-        font-size: 0.875rem;
-    }
-    .form-control {
-        font-size: 0.75rem;
-    }
-    .btn {
-        font-size: 0.875rem;
-    }
-}
 
-@media (max-width: 576px) {
-    h1 {
-        font-size: 1.25rem;
+    .custom-width {
+        padding: 0;
+
     }
-    .form-group label {
-        font-size: 0.75rem;
+
+    .result-title {
+        font-size: 24px;
     }
-    .form-control {
-        font-size: 0.7rem;
-    }
-    .btn {
-        font-size: 0.75rem;
-    }
+
 }
