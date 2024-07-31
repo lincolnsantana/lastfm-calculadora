@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -23,27 +23,16 @@
     <div class="container-fluid text-left">
         <div class="row mx-auto">
             <div class="col-sm-3 d-flex justify-content-center align-items-stretch">
-                <div class="container m-2">
-                    <h1 class="result-title">This is the time you spend listening to your <span class="pink-border">favorite albums.</span></h1>
+                <div class="container mt-5">
+                    <h1 class="result-title">This is the time you spend listening to your <span class="pink-border"><span class="pink-border">favorite albums.</span></h1>
                 </div>
             </div>
-            <div id="result" class="col-sm-9 p-0">
-                <div id="col-result" class="container p-0 d-flex flex-column row-gap-2">
+            <div id="result" class="result col-sm-9 d-flex flex-nowrap overflow-auto h-100" >
+                <div id="col-result" class="d-flex no-select">
                     <div class="container card-album">
                         <h1 class="card-rank">1</h1>
-                        <img src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
-                            class="img-mobile" alt="...">
-                        <div class="space-right border-0">
-                            <h4 class="album-name">This is Happening</h4>
-                            <h5 class="artist-name">LCD Soundsystem</h5>
-                            <h6 class="playcount">2.032 Scrobbles</h6>
-                            <h4 class="hours">203h25min</h4>
-                        </div>
-                    </div>
-                    <div class="container card-album">
-                        <h1 class="card-rank mb-4">1</h1>
-                        <img src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
-                            class="img-mobile" alt="...">
+                        <img id="capa-album" src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
+                            class="img-fluid mb-4" alt="...">
                         <div class="space-right border-0">
                             <h4 class="album-name">This is Happening</h4>
                             <h5 class="artist-name">LCD Soundsystem</h5>
@@ -53,8 +42,8 @@
                     </div>
                     <div class="container card-album">
                         <h1 class="card-rank">1</h1>
-                        <img src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
-                            class="img-mobile" alt="...">
+                        <img id="capa-album" src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
+                            class="img-fluid float-start mb-4" alt="...">
                         <div class="space-right border-0">
                             <h4 class="album-name">This is Happening</h4>
                             <h5 class="artist-name">LCD Soundsystem</h5>
@@ -64,8 +53,8 @@
                     </div>
                     <div class="container card-album">
                         <h1 class="card-rank">1</h1>
-                        <img src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
-                            class="img-mobile" alt="...">
+                        <img id="capa-album" src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
+                            class="img-fluid float-start mb-4" alt="...">
                         <div class="space-right border-0">
                             <h4 class="album-name">This is Happening</h4>
                             <h5 class="artist-name">LCD Soundsystem</h5>
@@ -75,8 +64,8 @@
                     </div>
                     <div class="container card-album">
                         <h1 class="card-rank">1</h1>
-                        <img src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
-                            class="img-mobile" alt="...">
+                        <img id="capa-album" src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
+                            class="img-fluid float-start mb-4" alt="...">
                         <div class="space-right border-0">
                             <h4 class="album-name">This is Happening</h4>
                             <h5 class="artist-name">LCD Soundsystem</h5>
@@ -84,20 +73,24 @@
                             <h4 class="hours">203h25min</h4>
                         </div>
                     </div>
-                    
-                    
-                   
+                    <div class="container card-album">
+                        <h1 class="card-rank">1</h1>
+                        <img id="capa-album" src="https://i.scdn.co/image/ab67616d0000b273ee0d0dce888c6c8a70db6e8b"
+                            class="img-fluid float-start mb-4" alt="...">
+                        <div class="space-right border-0">
+                            <h4 class="album-name">This is Happening</h4>
+                            <h5 class="artist-name">LCD Soundsystem</h5>
+                            <h6 class="playcount">2.032 Scrobbles</h6>
+                            <h4 class="hours">203h25min</h4>
+                        </div>
+                    </div>
+
                 </div>
-
-
-
-
             </div>
-
         </div>
     </div>
-
     <!-- Scripts JavaScript -->
+    <script src="scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

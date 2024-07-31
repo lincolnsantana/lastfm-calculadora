@@ -14,7 +14,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link para o arquivo CSS externo -->
 
     <title>Last.fm Albums Hours</title>
 </head>
@@ -75,29 +75,9 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Seleciona o formulário e o botão de envio
-            const form = document.querySelector('form');
-            const submitButton = form.querySelector('button[type="submit"]');
-        
-            // Adiciona um evento de click ao botão de envio
-            submitButton.addEventListener('click', function(event) {
-                //event.preventDefault(); // Previne o envio padrão do formulário
-        
-                // Oculta o formulário
-                const userForm = document.getElementById('user-form');
-                userForm.style.display = 'none';
-        
-                // Mostra a div com id result-div
-                const resultDiv = document.getElementById('loading-div');
-                resultDiv.style.display = 'block';
-            });
-        });
-        </script>
-        
-
+    
     <!-- Scripts JavaScript -->
+    <script src="js/loading.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

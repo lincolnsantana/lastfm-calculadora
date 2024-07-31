@@ -1,10 +1,10 @@
 <?php
-include("lastfm-api.php");
-include("spotify-api.php");
+include('apis/lastfm-api.php');
+include('apis/spotify-api.php');
 
 
 // Exemplo de uso:
-$limit = 8;
+$limit = 10;
 $user = $_POST['username'];
 
 
@@ -66,7 +66,7 @@ usort($dados_musicais, "compararTotalHoras");
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link para o arquivo CSS externo -->
 
     <title>Last.fm Albums Hours</title>
 </head>
@@ -79,8 +79,8 @@ usort($dados_musicais, "compararTotalHoras");
                     <h1 class="result-title">This is the time you spend listening to your <span class="pink-border">favorite albums.</span></h1>
                 </div>
             </div>
-            <div class="col-sm-9 d-flex flex-nowrap overflow-auto h-100">
-                <div class="d-flex">
+            <div id="result" class="col-sm-9 d-flex flex-nowrap overflow-auto h-100">
+                <div id="col-result" class="d-flex no-select">
 
 
                     <?php
@@ -93,11 +93,11 @@ usort($dados_musicais, "compararTotalHoras");
                         $partes = explode('-',  $dados['ano']);
                         $ano = $partes[0];
 
-                        echo '<div class="container card-album m-0" id="album">
-                        <h1 class="card-rank mb-4">'. $rank .'</h1>
+                        echo '<div class="container card-album">
+                        <h1 class="card-rank">'. $rank .'</h1>
                         <img src="' . $dados['imagem'] . '"
                             class="img-fluid mb-4" alt="' . $dados['artista'] . '">
-                        <div class="bg-transparent border-0">
+                        <div class="space-right border-0">
                             <h4 class="album-name">' . $dados['album'] . '</h4>
                             <h5 class="artist-name">' . $dados['artista'] . '</h5>
                             <h6 class="playcount">' . number_format($dados['playcount'], 0, ',', '.') . ' scrobbles</h6>
@@ -114,6 +114,7 @@ usort($dados_musicais, "compararTotalHoras");
         </div>
     </div>
     <!-- Scripts JavaScript -->
+    <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

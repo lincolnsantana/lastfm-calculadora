@@ -20,7 +20,7 @@ body {
 
 .pink-border {
     background-color: #FF9FCC;
-    border: 1px transparent;
+    border: transparent;
     border-radius: 12px;
     /* padding: 0 2px 0 2px; */
 
@@ -66,12 +66,15 @@ body {
 
 .card-album {
     width: 20rem;
+    row-gap: 16px;
+    
 }
 
 .album-name {
     font-size: 16px;
     line-height: 120%;
     font-weight: 500;
+    color: #212529;
 }
 
 .artist-name {
@@ -85,12 +88,14 @@ body {
     font-size: 14px;
     line-height: 150%;
     font-weight: 500;
+    color: #212529;
 }
 
 .hours {
     font-size: 24px;
     line-height: 120%;
     font-weight: 700;
+    color: #212529;
 }
 
 #loading-div {
@@ -111,6 +116,36 @@ body {
 
     .result-title {
         font-size: 24px;
+    }
+    .card-album {
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .space-right {
+        padding-left: 12px;
+    }
+
+    .card-rank {
+        align-self: center;
+        padding: 0 10px 0 15px;
+    }
+    .img-mobile {
+        width: 100px;
+        height: 100px;
+    }
+    .gap-mobile {
+        column-gap: 12px;
+    }
+    .album-name {
+        font-size: 14px;
+    }
+    .artist-name {
+        font-size: 14px;
+    }
+    .hours {
+        font-size: 20px;
     }
 
 }
