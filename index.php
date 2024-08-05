@@ -40,7 +40,7 @@
                                 <div class="col-10 mx-auto custom-width">
                                     <form action="calculadorahoras.php" method="POST">
                                     <div class="input-group mb-2 h-50">
-                                        <input type="text" id="username" name="username" class="form-control text-center input-text" placeholder="Your Last.fm username" aria-label="Username" aria-describedby="basic-addon1">
+                                        <input type="text" id="username" name="username" class="form-control text-center input-text" placeholder="Your Last.fm username" aria-label="Username" aria-describedby="basic-addon1" required>
                                     </div>
                                     <div class="d-grid h-50">
                                         <button type="submit" class="btn btn-dark input-text">Calculate</button>

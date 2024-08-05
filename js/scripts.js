@@ -30,23 +30,34 @@ scrollableDiv.addEventListener('mouseleave', () => {
     scrollableDiv.classList.remove('no-select');
 });
 
+const containerResult = document.getElementById('container-result');
+const rowResult = document.getElementById('row-result');
 const result = document.getElementById('result');
 const colResult = document.getElementById('col-result');
-//const capaAlbum = document.getElementById('capa-album');
+
 
 // Função para aplicar classes com base na resolução da tela
 function applyClassBasedOnResolution() {
     if (window.matchMedia("(max-width: 375px)").matches) {
+
+        containerResult.classList.add('container');
+        containerResult.classList.remove('container-fluid');
+        containerResult.classList.remove('text-left');
+        
+        rowResult.classList.add('row-gap-3');
+        
+
         result.classList.remove('result');
         result.classList.remove('d-flex');
         result.classList.remove('flex-nowrap');
         result.classList.remove('overflow-auto');
         result.classList.remove('h-100');
         colResult.classList.remove('no-select');
-        //colResult.classList.remove('img-fluid');
 
+        
         result.classList.add('p-0');
         colResult.classList.add('container');
+        colResult.classList.add('p-0');
         colResult.classList.add('flex-column');
         colResult.classList.add('row-gap-2');
     
@@ -62,6 +73,12 @@ function applyClassBasedOnResolution() {
 
 
     } else {
+        
+        containerResult.classList.add('container-fluid');
+        containerResult.classList.add('text-left');
+
+        containerResult.classList.remove('container');
+        rowResult.classList.remove('row-gap-3');
         result.classList.remove('p-0');
         colResult.classList.remove('container');
         colResult.classList.remove('flex-column');
@@ -77,6 +94,7 @@ function applyClassBasedOnResolution() {
             
         });
 
+        
         result.classList.add('result');
         result.classList.add('d-flex');
         result.classList.add('flex-nowrap');

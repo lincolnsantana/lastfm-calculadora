@@ -4,8 +4,8 @@ include('apis/spotify-api.php');
 
 
 // Exemplo de uso:
-$limit = 10;
-$user = $_POST['username'];
+$limit = 8;
+$user ="LincolnLopess";
 
 
 $resultados = obterTopAlbuns($apiUrl, $apiKey, $user, $limit);
@@ -18,41 +18,61 @@ $dados_musicais = array();
 foreach ($albuns as $index => $album) {
 
     //echo "Artista: {$artistas[$index]} | {$album} | Playcount: {$playcounts[$index]}\n";
-    $busca_album = buscarAlbum($album, $artistas[$index], $token_acesso);
+    $album_img = buscarAlbum($album, $artistas[$index], $token_acesso);
+    $busca_faixas = obterFaixasAlbum($apiUrl, $apiKey, $album, $artistas[$index]);
+    $total_horas = 0;
 
-    $ano_lancamento = buscarDataLancamento($album, $artistas[$index], $token_acesso);
+    if (!empty($busca_faixas)) {
 
-    if ($busca_album['id']) {
+        foreach ($busca_faixas as $faixa) {
+            
+            $tempo_faixa = buscarTempoDaFaixa($faixa, $artistas[$index], $token_acesso);
+            $playcount = playcountFaixa($artistas[$index], $faixa, $apiUrl, $apiKey, $user);
+            //$horas_faixa = formatarMsParaHoras($tempo_faixa * $playcount);
 
-        $faixas = obterFaixasAlbum($busca_album['id'], $token_acesso);
 
-        if (!empty($faixas)) {
-            //echo "Faixas do álbum '$album' de '{$artistas[$index]}':\n";
-            $total_horas = 0;
-            foreach ($faixas as $faixa) {
-
-                $nome_faixa = $faixa['name'];
-                $duracao = formatarDuracao($faixa['duration_ms']);
-                $playcount = playcountFaixa($artistas[$index], $nome_faixa, $apiUrl, $apiKey, $user);
-                $horas_faixa = formatarMsParaHoras($faixa['duration_ms'] * $playcount);
-
-                //echo "Faixa: $nome_faixa - Duração: $duracao Playcount: $playcount horas faixa: $horas_faixa\n";
-
-                $total_horas = $total_horas + ($faixa['duration_ms'] * $playcount);
-            }
-            $album_horas = '';
-
-            adicionarAlbum($dados_musicais, $album, $busca_album['imagem_url'], $ano_lancamento, $artistas[$index], $playcounts[$index], $total_horas);
-        } else {
-            echo "Nenhuma faixa encontrada para o álbum '$album' de {$artistas[$index]}.";
+            $total_horas += ($tempo_faixa * $playcount);
+            //echo "$faixa - $horas_faixa -  {$artistas[$index]} \n";
         }
+        adicionarAlbum($dados_musicais, $album, $album_img['imagem_url'], $artistas[$index], $playcounts[$index], $total_horas);
+
     } else {
-        echo "Álbum $album de {$artistas[$index]} não encontrado.";
+
+        $busca_album = buscarAlbum($album, $artistas[$index], $token_acesso);
+        
+        if ($busca_album['id']) {
+
+            $faixas = obterFaixasAlbumSpotify($busca_album['id'], $token_acesso);
+    
+            if (!empty($faixas)) {
+                //echo "Faixas do álbum '$album' de '{$artistas[$index]}':\n";
+        
+                foreach ($faixas as $faixa) {
+    
+                    $nome_faixa = $faixa['name'];
+                    $duracao = formatarDuracao($faixa['duration_ms']);
+                    $playcount = playcountFaixa($artistas[$index], $nome_faixa, $apiUrl, $apiKey, $user);
+                    //$horas_faixa = formatarMsParaHoras($faixa['duration_ms'] * $playcount);
+    
+                    //echo "Faixa: $nome_faixa - Duração: $duracao Playcount: $playcount horas faixa: $horas_faixa\n";
+    
+                    $total_horas = $total_horas + ($faixa['duration_ms'] * $playcount);
+                }
+    
+                adicionarAlbum($dados_musicais, $album, $album_img['imagem_url'], $artistas[$index], $playcounts[$index], $total_horas);
+            } else {
+                echo "Nenhuma faixa encontrada para o álbum '$album' de {$artistas[$index]}.";
+            }
+        } else {
+            echo "Álbum $album de {$artistas[$index]} não encontrado.";
+            
+        }
     }
+
+    //var_dump ($dados_musicais);
 }
 
 usort($dados_musicais, "compararTotalHoras");
-
 ?>
 
 <!DOCTYPE html>
@@ -72,29 +92,23 @@ usort($dados_musicais, "compararTotalHoras");
 </head>
 
 <body class="d-flex align-items-center min-vh-100">
-    <div class="container-fluid text-left">
-        <div class="row mx-auto">
+    <div id="container-result" class="container-fluid text-left">
+        <div id="row-result" class="row mx-auto">
             <div class="col-sm-3 d-flex justify-content-center align-items-stretch">
                 <div class="container mt-5">
-                    <h1 class="result-title">This is the time you spend listening to your <span class="pink-border">favorite albums.</span></h1>
+                    <h1 class="result-title">This is the time you spend listening to your <span class="pink-border"><span class="pink-border">favorite albums.</span></h1>
                 </div>
             </div>
-            <div id="result" class="col-sm-9 d-flex flex-nowrap overflow-auto h-100">
+            <div id="result" class="result col-sm-9 d-flex flex-nowrap overflow-auto h-100">
                 <div id="col-result" class="d-flex no-select">
-
-
                     <?php
                     $rank = 1;
                     foreach ($dados_musicais as $dados) {
                         //$album_horas = formatarMsParaHoras($total_horas);
                         //echo "$album ($ano_lancamento) - plays(scrobbles): {$playcounts[$index]} horas ouvidas: $album_horas<br>";
 
-                        //formatar a chave ano para mostrar somente o ano como data de lançamento.
-                        $partes = explode('-',  $dados['ano']);
-                        $ano = $partes[0];
-
                         echo '<div class="container card-album">
-                        <h1 class="card-rank">'. $rank .'</h1>
+                        <h1 class="card-rank">' . $rank . '</h1>
                         <img src="' . $dados['imagem'] . '"
                             class="img-fluid mb-4" alt="' . $dados['artista'] . '">
                         <div class="space-right border-0">
@@ -105,10 +119,11 @@ usort($dados_musicais, "compararTotalHoras");
                         </div>
                     </div>';
 
-                    $rank++;
+                        $rank++;
                     }
 
                     ?>
+
                 </div>
             </div>
         </div>
@@ -121,3 +136,4 @@ usort($dados_musicais, "compararTotalHoras");
 </body>
 
 </html>
+   
