@@ -40,23 +40,33 @@ function obterFaixasAlbum($apiUrl, $apiKey, $album, $artista) {
         return $faixas;
     } else {
         // Caso não encontre faixas, retorna falso ou uma mensagem de erro
-        return false;
+        return 0;
     }
 }
 
 function playcountFaixa($artista, $faixa, $apiUrl, $apiKey, $user)
 {
-    $busca = "$apiUrl?method=track.getInfo&user=$user&artist=" . str_replace(' ', '%20',  $artista) . "&track=" . str_replace(' ', '%20',  $faixa) . "&autocorrect=0&api_key=$apiKey&format=json";
+    $busca = "$apiUrl?method=track.getInfo&user=$user&artist=" . urlencode($artista) . "&track=" . urlencode($faixa) . "&autocorrect=0&api_key=$apiKey&format=json";
     $json_pagina = json_decode(file_get_contents($busca), true);
 
-    $faixa_playcount = $json_pagina['track']['userplaycount'];
 
-    return $faixa_playcount;
+    if (isset($json_pagina['track']['userplaycount'])) {
+        $faixa_playcount = $json_pagina['track']['userplaycount'];
+
+        return $faixa_playcount;
+    } else {
+        return 0;
+    }
+    
+
+    
 }
 
 
 $apiUrl = "http://ws.audioscrobbler.com/2.0/";
 $apiKey = "58b3181bd5318362464fd0e8fe566a00";
+
+
 
 
 

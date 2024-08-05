@@ -5,7 +5,7 @@ include('apis/spotify-api.php');
 
 // Exemplo de uso:
 $limit = 8;
-$user ="LincolnLopess";
+$user = $_POST['username'];
 
 
 $resultados = obterTopAlbuns($apiUrl, $apiKey, $user, $limit);
@@ -75,6 +75,10 @@ foreach ($albuns as $index => $album) {
 usort($dados_musicais, "compararTotalHoras");
 ?>
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -137,3 +141,4 @@ usort($dados_musicais, "compararTotalHoras");
 
 </html>
    
+

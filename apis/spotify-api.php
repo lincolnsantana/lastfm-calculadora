@@ -126,57 +126,6 @@ function obterFaixasAlbumSpotify($id_album, $token_acesso)
     return $dados['items'] ?? [];
 }
 
-/*
-function buscarTempoDaFaixa($nomeFaixa, $nomeArtista, $token_acesso) {
-    // Configurações
-    $base_url = 'https://api.spotify.com/v1/search';
-    
-    // Parâmetros da busca
-    $params = [
-        'q' => 'track:' . $nomeFaixa . ' artist:' . $nomeArtista,
-        'type' => 'track',
-        'market' => 'BR',
-        'limit' => 1
-    ];
-
-    // Monta a URL para requisição
-    $url = $base_url . '?' . http_build_query($params);
-
-    // Configuração do cabeçalho da requisição
-    $options = [
-        'http' => [
-            'header' => "Authorization: Bearer $token_acesso\r\n",
-            'method' => 'GET'
-        ]
-    ];
-    
-    // Cria o contexto da requisição
-    $context = stream_context_create($options);
-
-    // Executa a requisição e obtém a resposta
-    $response = @file_get_contents($url, false, $context);
-
-    // Verifica se a resposta é válida
-    if ($response === FALSE) {
-        return 'Erro na requisição';
-    }
-
-    // Decodifica a resposta JSON
-    $data = json_decode($response, true);
-
-    // Verifica se a faixa foi encontrada
-    if (isset($data['tracks']['items'][0]['duration_ms'])) {
-        // Converte o tempo para minutos e segundos
-        $tempo_ms = $data['tracks']['items'][0]['duration_ms'];
-        
-
-        return $tempo_ms;
-    } else {
-        return 'Tempo não encontrado';
-    }
-}
-*/
-
 function buscarTempoDaFaixa($nomeFaixa, $nomeArtista, $token_acesso) {
     // Configurações
     $base_url = 'https://api.spotify.com/v1/search';
@@ -261,8 +210,8 @@ function formatarMsParaHoras($milisegundos)
     return sprintf("%dh%02dmin", $horas, $minutos);
 }
 
-$id_cliente = "6998bcd985764732b305777357bdf280";
-$segredo_cliente = "9607cc79684d4142b737abd21ad247ea";
+$id_cliente = "";
+$segredo_cliente = "";
 $token_acesso = obterTokenAcesso($id_cliente, $segredo_cliente);
 
 ?>

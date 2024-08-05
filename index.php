@@ -16,7 +16,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css"> <!-- Link para o arquivo CSS externo -->
 
-    <title>Last.fm Albums Hours</title>
+    <title>Last.fm Top Albums per Hours</title>
 </head>
 
 <body class="d-flex justify-content-center align-items-center min-vh-100">
