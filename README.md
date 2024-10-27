@@ -3,5 +3,5 @@
 
 # funções que pretendo implementar futuramente
 - calcular quantas horas um usuario ouviu de um determinado album ou faixa
-- implementar algo relacionado com a api do Spotify
+- implementar algo relacionado com a api do Spotify (realizado)
 - o que mais vier na minha mente
